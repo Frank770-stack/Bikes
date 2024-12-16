@@ -1,0 +1,80 @@
+.product-gallery {
+  display: flex; /* Use flexbox for horizontal layout */
+  overflow: hidden; /* Hide overflow */
+  width: 100%; /* Full width */
+  max-width: 1200px; /* Adjust as needed */
+  margin: auto; /* Center the gallery */
+  position: relative; /* Position relative for absolute buttons */
+}
+
+.product-card {
+  flex: 0 0 16.66%; /* Each card takes up 1/6 of the width */
+  margin: 10px; /* Margin around each card */
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.product-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.product-card h3 {
+  margin: 10px 0;
+}
+
+.product-card p {
+  margin: 5px 0;
+}
+
+.product-card button {
+  display: none; /* Hide button by default */
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.product-card:hover button {
+  display: block; /* Show button on hover */
+}
+
+.product-card:hover {
+  transform: scale(1.05); /* Slightly enlarge on hover */
+}
+
+.slideshow-container {
+  position: relative;
+  width: 100%;
+}
+
+.nav-buttons {
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  transform: translateY(-50%);
+}
+
+.nav-button {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 10px;
+  margin: 0 5px;
+  transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+  background-color: rgba(255, 255, 255, 1);
+}

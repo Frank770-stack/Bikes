@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import "./Navbar.css";
 
 const Navbar = () => {
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-
-  const handleDropdownToggle = () => {
-    setDropdownOpen(!dropdownOpen);
-  };
-
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -18,31 +14,25 @@ const Navbar = () => {
         <li>
           <Link to="/">Home</Link>
         </li>
-        <li
-          className="shop-link"
-          onMouseEnter={handleDropdownToggle}
-          onMouseLeave={handleDropdownToggle}
-        >
-          <span>Shop</span>
-          {dropdownOpen && (
-            <ul className="dropdown-menu">
-              <li>
-                <Link to="/shop/road">Road Bikes</Link>
-              </li>
-              <li>
-                <Link to="/shop/gravel">Gravel Bikes</Link>
-              </li>
-              <li>
-                <Link to="/shop/electric">Electric Bikes</Link>
-              </li>
-              <li>
-                <Link to="/shop/kids">Kids Bikes</Link>
-              </li>
-            </ul>
-          )}
+        <li>
+          <Link to="/shop/roadbikes">Road Bikes</Link>
         </li>
         <li>
-          <Link to="/contact">Contact</Link>
+          <Link to="/shop/gravelbikes">Gravel Bikes</Link>
+        </li>
+        <li>
+          <Link to="/shop/electricbikes">Electric Bikes</Link>
+        </li>
+        <li>
+          <Link to="/shop/kidsbikes">Kids Bikes</Link>
+        </li>
+        <li>
+          <Link to="/cart">
+            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+          </Link>
+        </li>
+        <li>
+          <Link to="/login">Login</Link>
         </li>
       </ul>
     </nav>
