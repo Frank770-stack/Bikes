@@ -30,7 +30,7 @@
 }
 
 .cart-link:hover {
-  color: #ff9900;
+  color: white;
 }
 
 /* Bike gallery container */
@@ -81,7 +81,7 @@
 
 .bike-price {
   font-size: 1.2rem;
-  color: #ff9900;
+  color: black;
   margin: 10px 0;
 }
 
@@ -93,7 +93,7 @@
 
 /* Add to Cart button */
 .add-to-cart {
-  background-color: #ff9900;
+  background-color: black;
   color: white;
   border: none;
   border-radius: 5px;
@@ -116,5 +116,43 @@
 }
 
 .add-to-cart:hover {
-  background-color: #e68a00;
+  background-color: blue;
+}
+/* Cart icon container */
+.cart-icon-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+/* Cart icon */
+.cart-icon {
+  font-size: 2rem;
+  color: white;
+}
+
+/* Cart count badge */
+.cart-count {
+  position: absolute;
+  top: -5px;
+  right: -10px;
+  background-color: red;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Cart count hover effect */
+.cart-icon-container:hover .cart-count {
+  transform: scale(1.1);
+  background-color: darkred;
 }

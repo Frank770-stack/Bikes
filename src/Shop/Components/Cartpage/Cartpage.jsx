@@ -1,9 +1,32 @@
 import React from "react";
-// import { useCart } from "../Context/Cartcontext"; // Import useCart
+import "./Cartpage.css";
 import { useCart } from "../../Context/Cartcontext"; // Adjust the path as necessary
+import { useNavigate } from "react-router-dom"; // Import useNavigate for routing
+
+// Helper function to format price with currency symbol
+const formatPrice = (price) => {
+  const numericPrice =
+    typeof price === "string"
+      ? parseFloat(price.replace(/[^0-9.-]+/g, ""))
+      : price; // Ensure the price is a number
+  if (isNaN(numericPrice)) {
+    return "$0.00"; // Return a default value if the price is not a valid number
+  }
+  return `$${numericPrice.toFixed(2)}`; // Format the price with 2 decimal places
+};
+
 const Cart = () => {
   const { cart, removeFromCart, updateQuantity, clearCart, getTotalPrice } =
     useCart();
+  const navigate = useNavigate();
+
+  const handleContinueShopping = () => {
+    navigate(-1); // Navigate to the previous page
+  };
+
+  const handleProceedToCheckout = () => {
+    navigate("/checkout"); // Navigate to the checkout page
+  };
 
   return (
     <div className="cart">
@@ -17,7 +40,7 @@ const Cart = () => {
               <li key={item.id}>
                 <img src={item.image} alt={item.name} />
                 <h3>{item.name}</h3>
-                <p>Price: {item.price}</p>
+                <p>Price: {formatPrice(item.price)}</p> {/* Format price */}
                 <p>
                   Quantity:
                   <input
@@ -33,8 +56,15 @@ const Cart = () => {
               </li>
             ))}
           </ul>
-          <h3>Total Price: ${getTotalPrice().toFixed(2)}</h3>
+          <h3>Total Price: {formatPrice(getTotalPrice())}</h3>{" "}
+          {/* Format total price */}
           <button onClick={clearCart}>Clear Cart</button>
+          <div className="cart-actions">
+            <button onClick={handleContinueShopping}>Continue Shopping</button>
+            <button onClick={handleProceedToCheckout}>
+              Proceed to Checkout
+            </button>
+          </div>
         </>
       )}
     </div>

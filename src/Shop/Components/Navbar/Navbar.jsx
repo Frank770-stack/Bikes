@@ -2,9 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
+import { useCart } from "../../Context/Cartcontext"; // Adjust the path
 import "./Navbar.css";
 
 const Navbar = () => {
+  const { getCartItemCount } = useCart(); // Access the cart item count
+
   return (
     <nav className="navbar">
       <div className="navbar-logo">
@@ -28,7 +31,10 @@ const Navbar = () => {
         </li>
         <li>
           <Link to="/cart">
-            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+            <div className="cart-icon-container">
+              <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+              <span className="cart-count">{getCartItemCount()}</span>
+            </div>
           </Link>
         </li>
         <li>

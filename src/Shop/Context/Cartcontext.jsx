@@ -72,10 +72,14 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotalPrice = () => {
-    return state.items.reduce(
-      (total, item) => total + item.price.replace("$", "") * item.quantity,
-      0
-    );
+    return state.items.reduce((total, item) => {
+      const price = parseFloat(item.price.replace(/[^0-9.-]+/g, "")); // Convert price to number
+      return total + price * item.quantity;
+    }, 0);
+  };
+
+  const getCartItemCount = () => {
+    return state.items.reduce((total, item) => total + item.quantity, 0);
   };
 
   return (
@@ -87,6 +91,7 @@ export const CartProvider = ({ children }) => {
         updateQuantity,
         clearCart,
         getTotalPrice,
+        getCartItemCount, // Added cart count function
       }}
     >
       {children}

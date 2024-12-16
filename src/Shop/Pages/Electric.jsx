@@ -16,13 +16,17 @@ import bikeImage12 from "../Assets/Shophero.jpg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import Footer from "../Components/Footer/Footer";
+import { useCart } from "../Context/Cartcontext"; // Import useCart
 
 const Electric = () => {
+  const { addToCart } = useCart(); // Destructure addToCart from the context
+  const { getCartItemCount } = useCart(); // Access the cart item count
+
   const bikeDetails = [
     {
       id: 1,
       name: "E-Power 5000",
-      price: "$2,499",
+      price: 2499, // Store price as a number
       description:
         "The E-Power 5000 is a high-performance electric bike designed for speed and efficiency with a powerful motor.",
       image: bikeImage1,
@@ -30,7 +34,7 @@ const Electric = () => {
     {
       id: 2,
       name: "VoltX 600",
-      price: "$1,799",
+      price: 1799, // Store price as a number
       description:
         "VoltX 600 features a sleek design with a mid-drive motor and long-lasting battery for an amazing riding experience.",
       image: bikeImage2,
@@ -38,7 +42,7 @@ const Electric = () => {
     {
       id: 3,
       name: "TurboRide",
-      price: "$2,199",
+      price: 2199, // Store price as a number
       description:
         "TurboRide combines modern e-bike technology with a comfortable frame to make long rides effortless.",
       image: bikeImage3,
@@ -46,7 +50,7 @@ const Electric = () => {
     {
       id: 4,
       name: "CityVolt 300",
-      price: "$1,299",
+      price: 1299, // Store price as a number
       description:
         "Perfect for city commuting, the CityVolt 300 is a compact e-bike with excellent battery life and smooth handling.",
       image: bikeImage4,
@@ -54,7 +58,7 @@ const Electric = () => {
     {
       id: 5,
       name: "PowerCruiser",
-      price: "$2,699",
+      price: 2699, // Store price as a number
       description:
         "PowerCruiser offers a stylish design and powerful motor for smooth, fast rides on urban roads.",
       image: bikeImage5,
@@ -62,7 +66,7 @@ const Electric = () => {
     {
       id: 6,
       name: "EcoRide 1000",
-      price: "$1,499",
+      price: 1499, // Store price as a number
       description:
         "EcoRide 1000 is the eco-friendly e-bike for city commuting with a low environmental footprint.",
       image: bikeImage6,
@@ -70,7 +74,7 @@ const Electric = () => {
     {
       id: 7,
       name: "CityE-Commute",
-      price: "$2,299",
+      price: 2299, // Store price as a number
       description:
         "Designed for daily urban commuting, the CityE-Commute offers comfort, power, and style in one e-bike.",
       image: bikeImage7,
@@ -78,7 +82,7 @@ const Electric = () => {
     {
       id: 8,
       name: "VoltMaster",
-      price: "$2,499",
+      price: 2499, // Store price as a number
       description:
         "VoltMaster combines a high-performance motor and modern technology for a smooth ride on any terrain.",
       image: bikeImage8,
@@ -86,7 +90,7 @@ const Electric = () => {
     {
       id: 9,
       name: "E-Cruiser Pro",
-      price: "$2,799",
+      price: 2799, // Store price as a number
       description:
         "E-Cruiser Pro is a premium e-bike designed for long-distance riders with advanced motor support and top-tier components.",
       image: bikeImage9,
@@ -94,7 +98,7 @@ const Electric = () => {
     {
       id: 10,
       name: "UrbanX 500",
-      price: "$1,899",
+      price: 1899, // Store price as a number
       description:
         "The UrbanX 500 is built for quick, efficient rides around the city with a lightweight frame and strong motor.",
       image: bikeImage10,
@@ -102,7 +106,7 @@ const Electric = () => {
     {
       id: 11,
       name: "VoltRider",
-      price: "$2,199",
+      price: 2199, // Store price as a number
       description:
         "VoltRider is a robust e-bike perfect for both urban roads and light off-road trails with great battery efficiency.",
       image: bikeImage11,
@@ -110,7 +114,7 @@ const Electric = () => {
     {
       id: 12,
       name: "E-Explorer 1000",
-      price: "$2,499",
+      price: 2499, // Store price as a number
       description:
         "The E-Explorer 1000 is designed for those who love to explore off-road terrains with power assistance.",
       image: bikeImage12,
@@ -121,25 +125,30 @@ const Electric = () => {
     <div className="road-bikes-container">
       <div className="header">
         <h2 className="header-text">Explore Our Premium Electric Bikes</h2>
-        <NavLink to="/cart" className="cart-link">
-          <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+        <NavLink to="/cart">
+          <div className="cart-icon-container">
+            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+            <span className="cart-count">{getCartItemCount()}</span>
+          </div>
         </NavLink>
       </div>
       <div className="bike-gallery">
-        {bikeDetails.map((bike, index) => (
-          <div className="bike-card" key={index}>
-            <img
-              src={bike.image}
-              alt={`Electric Bike ${index + 1}`}
-              className="bike-image"
-            />
+        {bikeDetails.map((bike) => (
+          <div className="bike-card" key={bike.id}>
+            <img src={bike.image} alt={bike.name} className="bike-image" />
             <div className="bike-info">
               <h3 className="bike-name">{bike.name}</h3>
-              <p className="bike-price">{bike.price}</p>
+              <p className="bike-price">${bike.price.toFixed(2)}</p>{" "}
+              {/* Format price */}
               <p className="bike-description">{bike.description}</p>
             </div>
             <div className="overlay">
-              <button className="add-to-cart">Add to Cart</button>
+              <button
+                className="add-to-cart"
+                onClick={() => addToCart(bike)} // Add to cart functionality
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         ))}
