@@ -16,85 +16,103 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import Footer from "../Components/Footer/Footer";
+import { useCart } from "../Context/Cartcontext"; // Import cart context
 
 const Road = () => {
+  const { addToCart, getCartItemCount } = useCart(); // Use cart functions
+
   const bikeDetails = [
     {
+      id: 1,
       image: bikeImage1,
       name: "Speedster 3000",
-      price: "$899",
+      price: 899,
       description: "A lightweight road bike perfect for long-distance rides.",
     },
     {
+      id: 2,
       image: bikeImage2,
       name: "Endurance Pro",
-      price: "$1299",
+      price: 1299,
       description:
         "Built for comfort and performance, ideal for endurance cyclists.",
     },
     {
+      id: 3,
       image: bikeImage3,
       name: "RaceMaster",
-      price: "$1799",
+      price: 1799,
       description: "High-performance road bike for competitive cyclists.",
     },
     {
+      id: 4,
       image: bikeImage4,
       name: "TurboSpeed",
-      price: "$1599",
+      price: 1599,
       description: "Aerodynamic design for maximum speed and control.",
     },
     {
+      id: 5,
       image: bikeImage5,
       name: "Urban Explorer",
-      price: "$799",
+      price: 799,
       description: "Perfect for city rides with a sleek and durable design.",
     },
     {
+      id: 6,
       image: bikeImage6,
       name: "Mountain X",
-      price: "$999",
+      price: 999,
       description:
         "Versatile road bike with rugged tires for off-road exploration.",
     },
     {
+      id: 7,
       image: bikeImage7,
       name: "Pro Tour",
-      price: "$2199",
+      price: 2199,
       description: "Top-tier road bike with cutting-edge technology for pros.",
     },
     {
+      id: 8,
       image: bikeImage8,
       name: "City Cruiser",
-      price: "$649",
+      price: 649,
       description: "Comfortable and stylish bike for daily city commuting.",
     },
     {
+      id: 9,
       image: bikeImage9,
       name: "Cyclone 500",
-      price: "$1399",
+      price: 1399,
       description: "Powerful bike with advanced gearing system for speed.",
     },
     {
+      id: 10,
       image: bikeImage10,
       name: "Velocity R",
-      price: "$999",
+      price: 999,
       description:
         "Fast, responsive, and lightweight, perfect for competitive racing.",
     },
     {
+      id: 11,
       image: bikeImage11,
       name: "Rider's Choice",
-      price: "$1099",
+      price: 1099,
       description: "Well-balanced bike for cyclists of all skill levels.",
     },
     {
+      id: 12,
       image: bikeImage12,
       name: "SpeedCruiser",
-      price: "$1499",
+      price: 1499,
       description: "Cruise the streets with ease and style on this speedster.",
     },
   ];
+
+  // Helper function to format price
+  const formatPrice = (price) => `$${price.toFixed(2)}`;
 
   return (
     <div className="road-bikes-container">
@@ -102,24 +120,26 @@ const Road = () => {
         <h2 className="header-text">Explore Our Premium Road Bikes</h2>
         <NavLink to="/cart" className="cart-link">
           <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+          <span>{getCartItemCount()}</span>
         </NavLink>
       </div>
 
       <div className="bike-gallery">
-        {bikeDetails.map((bike, index) => (
-          <div className="bike-card" key={index}>
-            <img
-              src={bike.image}
-              alt={`Road Bike ${index + 1}`}
-              className="bike-image"
-            />
+        {bikeDetails.map((bike) => (
+          <div className="bike-card" key={bike.id}>
+            <img src={bike.image} alt={bike.name} className="bike-image" />
             <div className="bike-info">
               <h3 className="bike-name">{bike.name}</h3>
-              <p className="bike-price">{bike.price}</p>
+              <p className="bike-price">{formatPrice(bike.price)}</p>
               <p className="bike-description">{bike.description}</p>
             </div>
             <div className="overlay">
-              <button className="add-to-cart">Add to Cart</button>
+              <button
+                className="add-to-cart"
+                onClick={() => addToCart(bike)} // Add to cart functionality
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         ))}

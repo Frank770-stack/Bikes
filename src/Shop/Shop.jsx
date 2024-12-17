@@ -10,6 +10,7 @@ import ElectricBikes from "./Pages/Electric";
 import GravelBikes from "./Pages/Gravel";
 import KidsBikes from "./Pages/Kids";
 import Cart from "./Pages/Cart";
+import Checkout from "./Pages/Checkout";
 
 const Shop = () => {
   return (
@@ -25,6 +26,7 @@ const Shop = () => {
         <Route path="/electricbikes" element={<ElectricBikes />} />
         <Route path="/kidsbikes" element={<KidsBikes />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </div>
   );

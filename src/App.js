@@ -17,6 +17,7 @@ import Cart from "../src/Shop/Pages/Cart";
 import KidsBikes from "../src/Shop/Pages/Kids";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
+import Checkout from "../src/Shop/Pages/Checkout";
 
 function App() {
   return (
@@ -46,6 +47,7 @@ function App() {
         <Route path="shop/electricbikes" element={<ElectricBikes />} />
         <Route path="shop/kidsbikes" element={<KidsBikes />} />
         <Route path="/cart" element={<Cart />} />
+        <Route path="/checkout" element={<Checkout />} />
       </Routes>
     </>
   );

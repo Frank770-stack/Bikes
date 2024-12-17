@@ -5,10 +5,7 @@ import { useNavigate } from "react-router-dom"; // Import useNavigate for routin
 
 // Helper function to format price with currency symbol
 const formatPrice = (price) => {
-  const numericPrice =
-    typeof price === "string"
-      ? parseFloat(price.replace(/[^0-9.-]+/g, ""))
-      : price; // Ensure the price is a number
+  const numericPrice = typeof price === "string" ? parseFloat(price) : price; // Convert string to number if necessary
   if (isNaN(numericPrice)) {
     return "$0.00"; // Return a default value if the price is not a valid number
   }
@@ -21,7 +18,7 @@ const Cart = () => {
   const navigate = useNavigate();
 
   const handleContinueShopping = () => {
-    navigate(-1); // Navigate to the previous page
+    navigate(-1);
   };
 
   const handleProceedToCheckout = () => {
@@ -46,9 +43,12 @@ const Cart = () => {
                   <input
                     type="number"
                     value={item.quantity}
-                    onChange={(e) =>
-                      updateQuantity(item.id, Number(e.target.value))
-                    }
+                    onChange={(e) => {
+                      const quantity = Number(e.target.value);
+                      if (quantity > 0) {
+                        updateQuantity(item.id, quantity);
+                      }
+                    }}
                     min="1"
                   />
                 </p>

@@ -19,8 +19,7 @@ import Footer from "../Components/Footer/Footer";
 import { useCart } from "../Context/Cartcontext"; // Import useCart
 
 const Electric = () => {
-  const { addToCart } = useCart(); // Destructure addToCart from the context
-  const { getCartItemCount } = useCart(); // Access the cart item count
+  const { addToCart, getCartItemCount } = useCart(); // Destructure addToCart from the context
 
   const bikeDetails = [
     {
@@ -121,35 +120,33 @@ const Electric = () => {
     },
   ];
 
+  // Helper function to format price with currency symbol
+  const formatPrice = (price) => {
+    const numericPrice = typeof price === "string" ? parseFloat(price) : price; // Convert string to number if necessary
+    if (isNaN(numericPrice)) {
+      return "$0.00"; // Return a default value if the price is not a valid number
+    }
+    return `$${numericPrice.toFixed(2)}`; // Format the price with 2 decimal places
+  };
+
   return (
     <div className="road-bikes-container">
       <div className="header">
         <h2 className="header-text">Explore Our Premium Electric Bikes</h2>
         <NavLink to="/cart">
-          <div className="cart-icon-container">
-            <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
-            <span className="cart-count">{getCartItemCount()}</span>
+          <div className="cart-icon">
+            <FontAwesomeIcon icon={faShoppingCart} />
+            <span>{getCartItemCount()}</span>
           </div>
         </NavLink>
       </div>
-      <div className="bike-gallery">
+      <div className="product-list">
         {bikeDetails.map((bike) => (
-          <div className="bike-card" key={bike.id}>
-            <img src={bike.image} alt={bike.name} className="bike-image" />
-            <div className="bike-info">
-              <h3 className="bike-name">{bike.name}</h3>
-              <p className="bike-price">${bike.price.toFixed(2)}</p>{" "}
-              {/* Format price */}
-              <p className="bike-description">{bike.description}</p>
-            </div>
-            <div className="overlay">
-              <button
-                className="add-to-cart"
-                onClick={() => addToCart(bike)} // Add to cart functionality
-              >
-                Add to Cart
-              </button>
-            </div>
+          <div key={bike.id} className="product-card">
+            <img src={bike.image} alt={bike.name} />
+            <h3>{bike.name}</h3>
+            <p>Price: {formatPrice(bike.price)}</p>
+            <button onClick={() => addToCart(bike)}>Add to Cart</button>
           </div>
         ))}
       </div>

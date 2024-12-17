@@ -16,13 +16,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShoppingCart } from "@fortawesome/free-solid-svg-icons";
 import { NavLink } from "react-router-dom";
 import Footer from "../Components/Footer/Footer";
+import { useCart } from "../Context/Cartcontext"; // Import cart context
 
 const Kids = () => {
+  const { addToCart, getCartItemCount } = useCart(); // Use cart functions
+
   const bikeDetails = [
     {
       id: 1,
       name: "Mini Racer 200",
-      price: "$299",
+      price: 299, // Price stored as a number
       description:
         "A fun, colorful bike designed for young riders with easy-to-use features and a lightweight frame.",
       image: bikeImage1,
@@ -30,7 +33,7 @@ const Kids = () => {
     {
       id: 2,
       name: "Adventure Jr. 300",
-      price: "$349",
+      price: 349,
       description:
         "Adventure Jr. 300 is perfect for your child's first off-road experience with training wheels and a durable frame.",
       image: bikeImage2,
@@ -38,7 +41,7 @@ const Kids = () => {
     {
       id: 3,
       name: "Zoomer 400",
-      price: "$379",
+      price: 379,
       description:
         "The Zoomer 400 offers comfort and stability for young riders, designed for both street and light trail use.",
       image: bikeImage3,
@@ -46,7 +49,7 @@ const Kids = () => {
     {
       id: 4,
       name: "Explorer Kids 500",
-      price: "$429",
+      price: 429,
       description:
         "The Explorer Kids 500 is a versatile bike with a suspension fork and knobby tires for adventurous rides.",
       image: bikeImage4,
@@ -54,7 +57,7 @@ const Kids = () => {
     {
       id: 5,
       name: "Little Cruiser",
-      price: "$279",
+      price: 279,
       description:
         "Perfect for the little one, this cruiser bike offers comfort, style, and ease for kids starting to ride.",
       image: bikeImage5,
@@ -62,7 +65,7 @@ const Kids = () => {
     {
       id: 6,
       name: "Speedster Jr.",
-      price: "$359",
+      price: 359,
       description:
         "The Speedster Jr. combines speed and stability for children who want to go fast and have fun.",
       image: bikeImage6,
@@ -70,7 +73,7 @@ const Kids = () => {
     {
       id: 7,
       name: "CycloMax 300",
-      price: "$329",
+      price: 329,
       description:
         "CycloMax 300 offers excellent stability and durability for kids riding on both paved and dirt roads.",
       image: bikeImage7,
@@ -78,7 +81,7 @@ const Kids = () => {
     {
       id: 8,
       name: "TurboTrike 100",
-      price: "$199",
+      price: 199,
       description:
         "The TurboTrike 100 is designed for younger kids who are just learning to ride, with extra safety features.",
       image: bikeImage8,
@@ -86,7 +89,7 @@ const Kids = () => {
     {
       id: 9,
       name: "RacerX Jr.",
-      price: "$359",
+      price: 359,
       description:
         "RacerX Jr. is designed for kids who want to race, featuring lightweight frames and easy-to-use gears.",
       image: bikeImage9,
@@ -94,7 +97,7 @@ const Kids = () => {
     {
       id: 10,
       name: "Adventure Rider 200",
-      price: "$319",
+      price: 319,
       description:
         "The Adventure Rider 200 is built for young explorers who love both off-road and street adventures.",
       image: bikeImage10,
@@ -102,7 +105,7 @@ const Kids = () => {
     {
       id: 11,
       name: "Little TrailBlazer",
-      price: "$299",
+      price: 299,
       description:
         "Perfect for little adventurers, the Little TrailBlazer features knobby tires for all-terrain fun.",
       image: bikeImage11,
@@ -110,12 +113,17 @@ const Kids = () => {
     {
       id: 12,
       name: "ZoomerX Kids",
-      price: "$369",
+      price: 369,
       description:
         "ZoomerX Kids offers a perfect balance of speed, safety, and fun for children looking for a thrilling ride.",
       image: bikeImage12,
     },
   ];
+
+  // Helper function to format price
+  const formatPrice = (price) => {
+    return `$${price.toFixed(2)}`;
+  };
 
   return (
     <div className="road-bikes-container">
@@ -123,24 +131,26 @@ const Kids = () => {
         <h2 className="header-text">Explore Our Premium Kids Bikes</h2>
         <NavLink to="/cart" className="cart-link">
           <FontAwesomeIcon icon={faShoppingCart} className="cart-icon" />
+          <span>{getCartItemCount()}</span>
         </NavLink>
       </div>
 
       <div className="bike-gallery">
-        {bikeDetails.map((bike, index) => (
-          <div className="bike-card" key={index}>
-            <img
-              src={bike.image}
-              alt={`Road Bike ${index + 1}`}
-              className="bike-image"
-            />
+        {bikeDetails.map((bike) => (
+          <div className="bike-card" key={bike.id}>
+            <img src={bike.image} alt={bike.name} className="bike-image" />
             <div className="bike-info">
               <h3 className="bike-name">{bike.name}</h3>
-              <p className="bike-price">{bike.price}</p>
+              <p className="bike-price">{formatPrice(bike.price)}</p>
               <p className="bike-description">{bike.description}</p>
             </div>
             <div className="overlay">
-              <button className="add-to-cart">Add to Cart</button>
+              <button
+                className="add-to-cart"
+                onClick={() => addToCart(bike)} // Add to cart logic
+              >
+                Add to Cart
+              </button>
             </div>
           </div>
         ))}
